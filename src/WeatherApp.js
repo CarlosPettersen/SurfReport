@@ -98,6 +98,16 @@ const Weather = () => {
     );
   };
 
+  const getWindSpeedColor = (windSpeed) => {
+    if (windSpeed < 10) {
+      return "#339933"; // Green for low wind speed
+    } else if (windSpeed < 20) {
+      return "#e6e600"; // Yellow for moderate wind speed
+    } else {
+      return "#cc0000"; // Red for high wind speed
+    }
+  };
+
   return (
     <Container style={{ backgroundColor: "#f0f0f0", padding: "20px" }}>
       <Typography
@@ -126,7 +136,7 @@ const Weather = () => {
           onClick={fetchWeather}
           style={{ backgroundColor: "navy", color: "white" }}
         >
-          {loading ? "Fetching..." : "Get Weather"}
+          {loading ? "Loading..." : "Get Weather"}
         </Button>
       </Box>
       {error && (
@@ -163,6 +173,9 @@ const Weather = () => {
                     weatherData.forecastData.hourly.wind_direction_10m[index];
                   const directionArrowWind =
                     getDirectionArrow(windDirectionDegree);
+                  const windSpeedColor = getWindSpeedColor(
+                    weatherData.forecastData.hourly.wind_speed_10m[index],
+                  );
                   return (
                     <TableRow
                       key={index}
@@ -181,7 +194,7 @@ const Weather = () => {
                         {weatherData.marineData.hourly.wave_height[index]}
                       </TableCell>
                       <TableCell>{directionArrowWind}</TableCell>
-                      <TableCell>
+                      <TableCell style={{ backgroundColor: windSpeedColor }}>
                         {weatherData.forecastData.hourly.wind_speed_10m[index]}
                       </TableCell>
                     </TableRow>
