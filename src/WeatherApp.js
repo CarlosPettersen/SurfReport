@@ -115,7 +115,7 @@ const Weather = () => {
         align="center"
         style={{ marginBottom: "20px", color: "navy" }}
       >
-        Weather Information
+        Surf Spot
       </Typography>
       <Box
         style={{
@@ -136,7 +136,7 @@ const Weather = () => {
           onClick={fetchWeather}
           style={{ backgroundColor: "navy", color: "white" }}
         >
-          {loading ? "Loading..." : "Get Weather"}
+          {loading ? "Loading..." : "Get surf forecast"}
         </Button>
       </Box>
       {error && (
