@@ -83,7 +83,7 @@ const Weather = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentDate(new Date());
-    }, 1000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, []);
@@ -100,20 +100,26 @@ const Weather = () => {
 
   const getWindSpeedColor = (windSpeed) => {
     if (windSpeed < 10) {
-      return "#339933"; // Green for low wind speed
+      return "rgb(76 137 76)"; // Green for low wind speed
     } else if (windSpeed < 20) {
-      return "#e6e600"; // Yellow for moderate wind speed
+      return "rgb(187 187 91)"; // Yellow for moderate wind speed
     } else {
-      return "#cc0000"; // Red for high wind speed
+      return "rgb(195 91 91)"; // Red for high wind speed
     }
   };
 
   return (
-    <Container style={{ backgroundColor: "#f0f0f0", padding: "20px" }}>
+    <Container
+      style={{
+        backgroundColor: "rgb(49 57 59)",
+        padding: "20px",
+        color: "#fff",
+      }}
+    >
       <Typography
         variant="h2"
         align="center"
-        style={{ marginBottom: "20px", color: "navy" }}
+        style={{ marginBottom: "20px", color: "#00bcd4" }}
       >
         Surf Spot
       </Typography>
@@ -129,12 +135,21 @@ const Weather = () => {
           placeholder="Enter city"
           value={inputCity}
           onChange={handleInputChange}
-          style={{ marginRight: "10px", width: "300px" }}
+          style={{
+            marginRight: "10px",
+            paddingLeft: "10px",
+            width: "300px",
+            backgroundColor: "#212121",
+            color: "#fff",
+          }}
         />
         <Button
           variant="contained"
           onClick={fetchWeather}
-          style={{ backgroundColor: "navy", color: "white" }}
+          style={{
+            backgroundColor: "rgb(47 107 115)",
+            color: "#fff",
+          }}
         >
           {loading ? "Loading..." : "Get surf forecast"}
         </Button>
@@ -146,25 +161,49 @@ const Weather = () => {
       )}
       {weatherData && (
         <Box style={{ marginTop: "20px" }}>
-          <Typography variant="h5" align="center" style={{ color: "navy" }}>
+          <Typography variant="h5" align="center" style={{ color: "#00bcd4" }}>
             {inputCity}
           </Typography>
-          <TableContainer>
+          <TableContainer style={{ overflow: "visible" }}>
             <Table>
-              <TableHead>
+              <TableHead
+                style={{
+                  backgroundColor: "rgb(49 57 59)",
+                  position: "sticky",
+                  top: 0,
+                  zIndex: 1,
+                }}
+              >
                 <TableRow>
-                  <TableCell>Time</TableCell>
-                  <TableCell>Wave Direction</TableCell>
-                  <TableCell>Wave Period (s)</TableCell>
-                  <TableCell>Wave Height (m)</TableCell>
-                  <TableCell>Wind Direction</TableCell>
-                  <TableCell>Wind Speed (km/h)</TableCell>
+                  <TableCell style={{ color: "#00bcd4" }}>Time</TableCell>
+                  <TableCell style={{ color: "#00bcd4" }}>
+                    Wave Direction
+                  </TableCell>
+                  <TableCell style={{ color: "#00bcd4" }}>
+                    Wave Period (s)
+                  </TableCell>
+                  <TableCell style={{ color: "#00bcd4" }}>
+                    Wave Height (m)
+                  </TableCell>
+                  <TableCell style={{ color: "#00bcd4" }}>
+                    Wind Direction
+                  </TableCell>
+                  <TableCell style={{ color: "#00bcd4" }}>
+                    Wind Speed (km/h)
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {weatherData.marineData.hourly.time.map((time, index) => {
                   const date = new Date(time);
-                  const formattedDate = `${date.getDate()}/${date.getMonth() + 1} at ${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}`;
+                  const formattedDate = date.toLocaleDateString("en-US", {
+                    weekday: "long",
+                    month: "long",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                  });
+
                   const waveDirectionDegree =
                     weatherData.marineData.hourly.wave_direction[index];
                   const directionArrowWave =
@@ -181,19 +220,25 @@ const Weather = () => {
                       key={index}
                       style={
                         isCurrentRow(index)
-                          ? { backgroundColor: "rgba(0, 0, 255, 0.1)" }
+                          ? { backgroundColor: "rgba(0, 188, 212, 0.2)" }
                           : {}
                       }
                     >
-                      <TableCell>{formattedDate}</TableCell>
-                      <TableCell>{directionArrowWave}</TableCell>
-                      <TableCell>
+                      <TableCell style={{ color: "#fff" }}>
+                        {formattedDate}
+                      </TableCell>
+                      <TableCell style={{ color: "#fff" }}>
+                        {directionArrowWave}
+                      </TableCell>
+                      <TableCell style={{ color: "#fff" }}>
                         {weatherData.marineData.hourly.wave_period[index]}
                       </TableCell>
-                      <TableCell>
+                      <TableCell style={{ color: "#fff" }}>
                         {weatherData.marineData.hourly.wave_height[index]}
                       </TableCell>
-                      <TableCell>{directionArrowWind}</TableCell>
+                      <TableCell style={{ color: "#fff" }}>
+                        {directionArrowWind}
+                      </TableCell>
                       <TableCell style={{ backgroundColor: windSpeedColor }}>
                         {weatherData.forecastData.hourly.wind_speed_10m[index]}
                       </TableCell>
