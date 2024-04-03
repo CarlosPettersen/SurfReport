@@ -110,6 +110,7 @@ const Weather = () => {
 
   return (
     <Container
+      maxWidth="100%"
       style={{
         backgroundColor: "rgb(49 57 59)",
         padding: "20px",
@@ -164,16 +165,9 @@ const Weather = () => {
           <Typography variant="h5" align="center" style={{ color: "#00bcd4" }}>
             {inputCity}
           </Typography>
-          <TableContainer style={{ overflow: "visible" }}>
+          <TableContainer>
             <Table>
-              <TableHead
-                style={{
-                  backgroundColor: "rgb(49 57 59)",
-                  position: "sticky",
-                  top: 0,
-                  zIndex: 1,
-                }}
-              >
+              <TableHead>
                 <TableRow>
                   <TableCell style={{ color: "#00bcd4" }}>Time</TableCell>
                   <TableCell style={{ color: "#00bcd4" }}>
