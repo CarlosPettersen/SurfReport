@@ -110,7 +110,6 @@ const Weather = () => {
 
   return (
     <Container
-      maxWidth="100%"
       style={{
         backgroundColor: "rgb(49 57 59)",
         padding: "20px",
