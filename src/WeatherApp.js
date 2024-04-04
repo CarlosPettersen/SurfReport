@@ -40,7 +40,7 @@ const Weather = () => {
             `https://marine-api.open-meteo.com/v1/marine?latitude=${latitude}&longitude=${longitude}&hourly=wave_height,wave_direction,wave_period&timezone=Australia%2FSydney`,
           ),
           axios.get(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=wind_speed_10m,wind_direction_10m&timezone=Australia%2FSydney`,
+            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=wind_speed_10m,wind_direction_10m,temperature_2m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,rain_sum&timezone=Australia%2FSydney`,
           ),
         ]);
       })
@@ -162,9 +162,49 @@ const Weather = () => {
       )}
       {weatherData && (
         <Box style={{ marginTop: "20px" }}>
-          <Typography variant="h5" align="center" style={{ color: "#00bcd4" }}>
-            {inputCity}
-          </Typography>
+          <Box style={{ marginTop: "20px", textAlign: "center" }}>
+            <Typography variant="h5" style={{ color: "#fff" }}>
+              {inputCity}
+            </Typography>
+            <Typography variant="h6" style={{ color: "#fff" }}>
+              Temperature:{" "}
+              {
+                weatherData.forecastData.hourly.temperature_2m[
+                  currentDate.getHours()
+                ]
+              }
+              °C ( Max:{" "}
+              {
+                weatherData.forecastData.daily.temperature_2m_max[
+                  currentDate.getDay()
+                ]
+              }
+              °C, Min:{" "}
+              {
+                weatherData.forecastData.daily.temperature_2m_min[
+                  currentDate.getDay()
+                ]
+              }
+              °C)
+            </Typography>
+            <Typography variant="body1" style={{ color: "#fff" }}>
+              Sunrise:{" "}
+              {new Date(
+                weatherData.forecastData.daily.sunrise[
+                  currentDate.getDate() - 1
+                ],
+              ).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}{" "}
+              | Sunset:{" "}
+              {new Date(
+                weatherData.forecastData.daily.sunset[
+                  currentDate.getDate() - 1
+                ],
+              ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+            </Typography>
+          </Box>
           <TableContainer>
             <Table>
               <TableHead>
