@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/SurfReport/static/js/main.98051f46.js",
+    "main.js": "/SurfReport/static/js/main.01bea621.js",
     "index.html": "/SurfReport/index.html",
-    "main.98051f46.js.map": "/SurfReport/static/js/main.98051f46.js.map"
+    "main.01bea621.js.map": "/SurfReport/static/js/main.01bea621.js.map"
   },
   "entrypoints": [
-    "static/js/main.98051f46.js"
+    "static/js/main.01bea621.js"
   ]
 }
