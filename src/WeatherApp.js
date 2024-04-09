@@ -150,6 +150,8 @@ const Weather = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          flexDirection: "row",
+          flexWrap: "wrap",
         }}
       >
         <Autocomplete
