@@ -38,7 +38,9 @@ const Weather = () => {
       const response = await axios.get(
         `https://geocoding-api.open-meteo.com/v1/search?name=${query}&count=5&language=en&format=json`,
       );
-      setSuggestions(response.data.results);
+      setSuggestions(
+        response.data.results.map((result) => ({ name: result.name })),
+      );
     } catch (error) {
       console.error("Error fetching suggestions:", error);
     }
