@@ -4,7 +4,7 @@ import {
   Button,
   Box,
   Container,
-  Input,
+  TextField,
   Typography,
   Table,
   TableBody,
@@ -112,7 +112,7 @@ const Weather = () => {
     <Container
       maxWidth="100%"
       style={{
-        backgroundColor: "rgb(49 57 59)",
+        backgroundColor: "#222",
         padding: "20px",
         color: "#fff",
       }}
@@ -131,17 +131,17 @@ const Weather = () => {
           justifyContent: "center",
         }}
       >
-        <Input
-          type="text"
+        <TextField
           placeholder="Enter city"
+          variant="outlined"
           value={inputCity}
           onChange={handleInputChange}
           style={{
             marginRight: "10px",
-            paddingLeft: "10px",
+            borderRadius: "10px",
             width: "300px",
-            backgroundColor: "#212121",
-            color: "#fff",
+            backgroundColor: "#f0f0f0",
+            color: "#222",
           }}
         />
         <Button
@@ -190,39 +190,67 @@ const Weather = () => {
             <Typography variant="body1" style={{ color: "#fff" }}>
               Sunrise:{" "}
               {new Date(
-                weatherData.forecastData.daily.sunrise[
-                  currentDate.getDate() - 1
-                ],
+                weatherData.forecastData.daily.sunrise[0],
               ).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
               })}{" "}
               | Sunset:{" "}
               {new Date(
-                weatherData.forecastData.daily.sunset[
-                  currentDate.getDate() - 1
-                ],
+                weatherData.forecastData.daily.sunset[0],
               ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
             </Typography>
           </Box>
-          <TableContainer>
-            <Table>
+          <TableContainer sx={{ maxHeight: 640 }}>
+            <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
-                  <TableCell style={{ color: "#00bcd4" }}>Time</TableCell>
-                  <TableCell style={{ color: "#00bcd4" }}>
+                  <TableCell
+                    style={{
+                      color: "#00bcd4",
+                      backgroundColor: "#222",
+                    }}
+                  >
+                    Time
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      color: "#00bcd4",
+                      backgroundColor: "#222",
+                    }}
+                  >
                     Wave Direction
                   </TableCell>
-                  <TableCell style={{ color: "#00bcd4" }}>
+                  <TableCell
+                    style={{
+                      color: "#00bcd4",
+                      backgroundColor: "#222",
+                    }}
+                  >
                     Wave Period (s)
                   </TableCell>
-                  <TableCell style={{ color: "#00bcd4" }}>
+                  <TableCell
+                    style={{
+                      color: "#00bcd4",
+                      backgroundColor: "#222",
+                    }}
+                  >
                     Wave Height (m)
                   </TableCell>
-                  <TableCell style={{ color: "#00bcd4" }}>
+                  <TableCell
+                    style={{
+                      color: "#00bcd4",
+                      backgroundColor: "#222",
+                    }}
+                  >
                     Wind Direction
                   </TableCell>
-                  <TableCell style={{ color: "#00bcd4" }}>
+                  <TableCell
+                    style={{
+                      color: "#00bcd4",
+                      backgroundColor: "#222",
+                    }}
+                  >
                     Wind Speed (km/h)
                   </TableCell>
                 </TableRow>
@@ -254,7 +282,7 @@ const Weather = () => {
                       key={index}
                       style={
                         isCurrentRow(index)
-                          ? { backgroundColor: "rgba(0, 188, 212, 0.2)" }
+                          ? { backgroundColor: "rgba(0, 188, 212, 0.5)" }
                           : {}
                       }
                     >
