@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
+  Autocomplete,
   Button,
   Box,
   Container,
@@ -20,9 +21,27 @@ const Weather = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [suggestions, setSuggestions] = useState([]);
 
   const handleInputChange = (e) => {
-    setInputCity(e.target.value);
+    const { value } = e.target;
+    setInputCity(value);
+    if (value.trim().length > 2) {
+      fetchSuggestions(value);
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const fetchSuggestions = async (query) => {
+    try {
+      const response = await axios.get(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${query}&count=5&language=en&format=json`,
+      );
+      setSuggestions(response.data.results);
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+    }
   };
 
   const fetchWeather = () => {
@@ -131,18 +150,26 @@ const Weather = () => {
           justifyContent: "center",
         }}
       >
-        <TextField
-          placeholder="Enter city"
-          variant="outlined"
-          value={inputCity}
-          onChange={handleInputChange}
-          style={{
-            marginRight: "10px",
-            borderRadius: "10px",
-            width: "300px",
-            backgroundColor: "#f0f0f0",
-            color: "#222",
-          }}
+        <Autocomplete
+          options={suggestions}
+          getOptionLabel={(option) => option.name}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Enter city"
+              variant="filled"
+              value={inputCity}
+              onChange={handleInputChange}
+              style={{
+                marginRight: "10px",
+                borderRadius: "10px",
+                width: "300px",
+                backgroundColor: "#f0f0f0",
+                color: "#222",
+              }}
+            />
+          )}
+          onChange={(event, value) => value && setInputCity(value.name)}
         />
         <Button
           variant="contained"
