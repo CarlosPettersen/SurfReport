@@ -13,6 +13,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  useMediaQuery,
 } from "@mui/material";
 
 const Weather = () => {
@@ -22,6 +23,7 @@ const Weather = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
+  const isMobile = useMediaQuery("(max-width:540px)");
 
   const handleInputChange = (e) => {
     const { value } = e.target;
@@ -167,7 +169,7 @@ const Weather = () => {
               style={{
                 marginRight: "10px",
                 borderRadius: "10px",
-                width: "300px",
+                width: isMobile ? "200px" : "300px",
                 backgroundColor: "#f0f0f0",
                 color: "#222",
               }}
@@ -181,6 +183,7 @@ const Weather = () => {
           style={{
             backgroundColor: "rgb(47 107 115)",
             color: "#fff",
+            marginTop: isMobile ? "10px" : "0px",
           }}
         >
           {loading ? "Loading..." : "Get surf forecast"}
