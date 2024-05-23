@@ -138,6 +138,10 @@ const Weather = () => {
         backgroundColor: "#222",
         padding: "20px",
         color: "#fff",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "start",
       }}
     >
       <Typography
